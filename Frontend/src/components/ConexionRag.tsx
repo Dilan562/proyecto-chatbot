@@ -4,27 +4,30 @@ const ChatComponent: React.FC = () => {
   const [input, setInput] = useState("");
   const [respuesta, setRespuesta] = useState("");
 
-const enviarMensaje = async () => {
-  console.log("Enviando:", input);
-  try {
-    const res = await fetch("http://localhost:5000/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mensaje: input }),
-    });
+  const enviarMensaje = async () => {
+    console.log("Enviando:", input);
+    try {
+      const res = await fetch("http://localhost:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mensaje: input }),
+      });
 
-    console.log("Respuesta cruda:", res);
-    const data = await res.json();
-    console.log("Respuesta JSON:", data);
+      console.log("Respuesta cruda:", res);
+      const data = await res.json();
+      console.log("Respuesta JSON:", data);
 
-    setRespuesta(data.respuesta);
-  } catch (error) {
-    console.error("Error en fetch:", error);
-  }
-};
+      setRespuesta(data.respuesta);
+    } catch (error) {
+      console.error("Error en fetch:", error);
+    }
+  };
 
   return (
-    <div>
+    <div className="ChatComponent">
+      <h1>
+        ¿Tienes dudas? Pregunta a nuestra IA
+      </h1>
       <input
         type="text"
         value={input}
