@@ -1,10 +1,10 @@
 import '../Styles/Titulo.css'
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import ChatComponent from './ConexionRag';
-function Titulo() {
+function MainTitle(Body: string) {
     return (
        <div className='Titulo'>
-        <h1>Bienvenidos a Placitas</h1>
+        <h1>{Body}</h1>
        <Router>
       <div style={{ padding: "20px" }}>            
         <Routes>
@@ -16,4 +16,13 @@ function Titulo() {
     )
 }
 
-export default Titulo
+function Title(Body: string) {
+    return (
+        <div className='Titulo'>
+            <h1>{Body}</h1>
+        </div>
+    )
+}
+
+
+export default MainTitle; export { Title }

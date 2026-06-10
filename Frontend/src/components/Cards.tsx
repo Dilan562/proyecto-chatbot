@@ -12,14 +12,22 @@ interface Carta {
 
 function Carta() {
   const [menu, setMenu] = useState<Carta[]>();
+  const [isLoading, setIsLoading] = useState(true);
 
 useEffect(() => {
-  fetch("http://localhost:5000/")
+  fetch("http://localhost:5000/menu")
     .then((response) => response.json())
-    .then((data) => setMenu(data))
+    .then((data) => {
+      setMenu(data);
+      setIsLoading(false);
+    })
     .catch((err) => console.error("Error cargando menú:", err));
 }, []);  // <-- aquí el cambio
 
+
+if (isLoading) {
+  return <div>Cargando...</div>;
+}
 
   return (
 <div className="container mt-4">
