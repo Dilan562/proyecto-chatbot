@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 function ModUser() {
   const { id } = useParams();
-  const navigate = useNavigate(); // 👈 este hook permite redirigir
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ name: "", email: "", role: "" });
 
@@ -19,7 +19,9 @@ function ModUser() {
       );
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -36,33 +38,72 @@ function ModUser() {
       })
       .then(() => {
         alert("Usuario actualizado correctamente");
-        navigate("/Admin"); // 👈 redirige al AdminPanel
+        navigate("/Admin");
       })
       .catch((err) => console.error(err));
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Nombre:
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        Rol:
-        <select name="role" value={formData.role} onChange={handleChange}>
-          <option value="admin">Admin</option>
-          <option value="usuario">Usuario</option>
-        </select>
-      </label>
-      <br />
-      <button type="submit">Guardar cambios</button>
-    </form>
+    <div className="container mt-5">
+      <div className="card shadow">
+        <div className="card-header bg-primary text-white">
+          <h4>Editar Usuario</h4>
+        </div>
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Nombre</label>
+              <input
+                type="text"
+                name="name"
+                className="form-control"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Rol</label>
+              <select
+                name="role"
+                className="form-select"
+                value={formData.role}
+                onChange={handleChange}
+              >
+                <option value="admin">Admin</option>
+                <option value="usuario">Usuario</option>
+              </select>
+            </div>
+
+            <div className="d-flex justify-content-between">
+              <button type="submit" className="btn btn-success">
+                Guardar cambios
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => navigate("/Admin")}
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

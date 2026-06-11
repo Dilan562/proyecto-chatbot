@@ -5,7 +5,6 @@ const ChatComponent: React.FC = () => {
   const [respuesta, setRespuesta] = useState("");
 
   const enviarMensaje = async () => {
-    console.log("Enviando:", input);
     try {
       const res = await fetch("http://localhost:5000/chat", {
         method: "POST",
@@ -13,10 +12,7 @@ const ChatComponent: React.FC = () => {
         body: JSON.stringify({ mensaje: input }),
       });
 
-      console.log("Respuesta cruda:", res);
       const data = await res.json();
-      console.log("Respuesta JSON:", data);
-
       setRespuesta(data.respuesta);
     } catch (error) {
       console.error("Error en fetch:", error);
@@ -24,18 +20,36 @@ const ChatComponent: React.FC = () => {
   };
 
   return (
-    <div className="ChatComponent">
-      <h1>
-        ¿Tienes dudas? Pregunta a nuestra IA
-      </h1>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Escribe tu pregunta"
-      />
-      <button onClick={enviarMensaje}>Enviar</button>
-      <p>Respuesta: {respuesta}</p>
+    <div className="container mt-5">
+      <div className="card shadow">
+        <div className="card-header bg-info text-white">
+          <h3 className="mb-0">¿Tienes dudas? Pregunta a nuestra IA</h3>
+        </div>
+        <div className="card-body">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Escribe tu pregunta..."
+            />
+            <button
+              className="btn btn-primary"
+              onClick={enviarMensaje}
+              disabled={!input.trim()}
+            >
+              Enviar
+            </button>
+          </div>
+
+          {respuesta && (
+            <div className="alert alert-success mt-3">
+              <strong>Respuesta:</strong> {respuesta}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

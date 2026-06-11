@@ -1,10 +1,13 @@
 import '../Styles/Titulo.css'
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import ChatComponent from './ConexionRag';
-function MainTitle(Body: string) {
+
+
+
+function MainTitle() {
     return (
        <div className='Titulo'>
-        <h1>{Body}</h1>
+        <h1>"Bienvenidos a Placitas"</h1>
        <Router>
       <div style={{ padding: "20px" }}>            
         <Routes>
@@ -15,6 +18,7 @@ function MainTitle(Body: string) {
        </div>
     )
 }
+
 
 function Title(Body: string) {
     return (
